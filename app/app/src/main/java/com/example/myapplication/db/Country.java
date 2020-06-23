@@ -24,7 +24,7 @@ public class Country extends DataSupport {
         this.countryName = countryName;
     }
 
-    public String getWeatherId() {
+    public String getWeatherId(int anInt) {
         return weatherId;
     }
 

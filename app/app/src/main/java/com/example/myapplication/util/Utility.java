@@ -1,6 +1,7 @@
 package com.example.myapplication.util;
 
 import android.app.DownloadManager;
+import android.content.SharedPreferences;
 import android.text.TextUtils;
 
 import com.example.myapplication.db.City;
@@ -31,7 +32,7 @@ public class Utility {
         return false;
     }
 
-    public static boolean handleCityRequest(String response, int provinceId) {
+    public static boolean handleCityResponse(String response, int provinceId) {
         if (!TextUtils.isEmpty(response)) {
             try {
                 JSONArray allCities = new JSONArray(response);
@@ -51,12 +52,12 @@ public class Utility {
         return false;
     }
 
-    public static boolean handleCountryReponse(String response, int cityId) {
+    public static boolean handleCountryResponse(String response, int cityId) {
         if (!TextUtils.isEmpty(response)) {
             try {
-                JSONArray allCities = new JSONArray(response);
-                for (int i = 0; i < allCities.length(); i++) {
-                    JSONObject cityObject = allCities.getJSONObject(i);
+                JSONArray allCountries = new JSONArray(response);
+                for (int i = 0; i < allCountries.length(); i++) {
+                    JSONObject countryObject = allCountries.getJSONObject(i);
                     Country country = new Country();
                     country.setCountryName(countryObject.getString("name"));
                     country.getWeatherId(countryObject.getInt("weather_id"));

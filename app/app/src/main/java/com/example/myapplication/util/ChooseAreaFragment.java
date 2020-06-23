@@ -1,8 +1,28 @@
 package com.example.myapplication.util;
 
+import android.app.ProgressDialog;
+import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
+
+import com.example.myapplication.R;
+import com.example.myapplication.db.City;
+import com.example.myapplication.db.Country;
+import com.example.myapplication.db.Province;
+
+import org.litepal.crud.DataSupport;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ChooseAreaFragment extends Fragment {
     public static final int LEVEL_PROVINCE = 0;
@@ -34,7 +54,7 @@ public class ChooseAreaFragment extends Fragment {
     /**
      * 县列表
      */
-    private List<County> countyList;
+    private List<Country> countyList;
     /**
      * 选中的省份
      */
@@ -47,6 +67,10 @@ public class ChooseAreaFragment extends Fragment {
      * 选中的级别
      */
     private int currentLevel;
+
+    public ChooseAreaFragment(List<City> cityList) {
+        this.cityList = cityList;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -67,7 +91,7 @@ public class ChooseAreaFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        listView.set0nItemClickListener(new AdapterView.OnItemClickListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position,
                                     long id) {
@@ -80,7 +104,7 @@ public class ChooseAreaFragment extends Fragment {
                 }
             }
         });
-        backButton.set0nClickListener(new View.OnClickListener() {
+        backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (currentLevel == LEVEL_COUNTRY) {
@@ -119,11 +143,11 @@ public class ChooseAreaFragment extends Fragment {
         titleText.setText(selectedCity.getCityName());
         backButton.setVisibility(View.VISIBLE);
         countyList = DataSupport.where("cityid = ?", String.valueOf(selectedCity.
-                getId())).find(County.class);
+                getId())).find(Country.class);
         if (countyList.size() > 0) {
             dataList.clear();
-            for (County county : countyList) {
-                dataList.add(country.getCountyName());
+            for (Country country : countyList) {
+                dataList.add(country.getCountryName());
             }
             adapter.notifyDataSetChanged();
             listView.setSelection(0);
@@ -138,7 +162,7 @@ public class ChooseAreaFragment extends Fragment {
 
     private void queryFromServer(String address, final String type) {
         showProgressDialog();
-        HttpUtil.send0kHttpRequest(address, new Callback() {
+        HttpUtil.sendOkHttpRequest(address, new Callback() {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String responseText = response.body().string();
@@ -181,6 +205,9 @@ public class ChooseAreaFragment extends Fragment {
                 });
             }
         });
+    }
+
+    private void queryCities() {
     }
 
     private void showProgressDialog() {
