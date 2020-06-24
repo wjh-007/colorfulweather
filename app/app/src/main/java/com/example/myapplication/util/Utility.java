@@ -42,7 +42,7 @@ public class Utility {
                     JSONObject cityObject = allCities.getJSONObject(i);
                     City city = new City();
                     city.setCityName(cityObject.getString("name"));
-                    city.getCityCode(cityObject.getInt("id"));
+                    city.setCityCode(cityObject.getInt("id"));
                     city.setProvinceId(provinceId);
                     city.save();
                 }
@@ -62,7 +62,7 @@ public class Utility {
                     JSONObject countryObject = allCountries.getJSONObject(i);
                     Country country = new Country();
                     country.setCountryName(countryObject.getString("name"));
-                    country.getWeatherId(countryObject.getInt("weather_id"));
+                    country.setWeatherId(countryObject.getString("weather_id"));
                     country.setCityId(cityId);
                     country.save();
                 }

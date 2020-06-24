@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -87,7 +88,7 @@ public class WeatherActivity extends AppCompatActivity {
             showWeatherInfo( weather );
         } else {
 
-            String weatherId = getIntent().getStringExtra( "weather id" );
+            String weatherId = getIntent().getStringExtra( "weather_id" );
             weatherLayout.setVisibility( View.INVISIBLE );
             requestWeather( weatherId );
         }
@@ -177,7 +178,7 @@ public class WeatherActivity extends AppCompatActivity {
     }
 
         if (weather.aqi != null) {
-
+            Log.i("test",weather.aqi.city.aqi);
             aqiText.setText( weather.aqi.city.aqi );
             pm25Text.setText( weather.aqi.city.pm25 );
         }
