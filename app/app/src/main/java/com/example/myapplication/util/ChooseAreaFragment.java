@@ -21,8 +21,13 @@ import com.example.myapplication.db.Province;
 
 import org.litepal.crud.DataSupport;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 public class ChooseAreaFragment extends Fragment {
     public static final int LEVEL_PROVINCE = 0;
@@ -173,7 +178,7 @@ public class ChooseAreaFragment extends Fragment {
                     result = Utility.handleCityResponse(responseText,
                             selectedProvince.getId());
                 } else if (" county".equals(type)) {
-                    result = Utility.handleCountyResponse(responseText,
+                    result = Utility.handleCountryResponse(responseText,
                             selectedCity.getId());
                 }
                 if (result) {
@@ -214,7 +219,7 @@ public class ChooseAreaFragment extends Fragment {
         if (progressDialog == null) {
             progressDialog = new ProgressDialog(getActivity());
             progressDialog.setMessage("正在加载...");
-            progressDialog.setCanceled0nTouch0utside(false);
+            progressDialog.setCanceledOnTouchOutside(false);
         }
         progressDialog.show();
 
